@@ -66,14 +66,12 @@
             button.innerText = "Detecting location...";
             let {latitude, longitude} = position.coords;
           
-            fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=14a024b0dd184468a1104af1693f057f`)
-            .then(response => response.json()).then(result => {
-                let alldetails = result.results[0].components;
-                let { country, city, state, postcode, suburb, road } = alldetails;
-                postcode = postcode || 'N/A'; // Default to 'N/A' if postcode is not available
-                button.innerText = `${road ? road + ', ' : ''}${suburb ? suburb + ', ' : ''}${city}, ${state}, ${country}`;
-                console.table(alldetails);
-            }).catch(() =>{
+           fetch('https://ipinfo.io/json?token=7d0fb2e4ce20d3')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    document.querySelector('button').innerText = `${data.city}, ${data.region}, ${data.country}`;
+  }).catch(() =>{
                 button.innerText = "Something went wrong";
             });
         }
